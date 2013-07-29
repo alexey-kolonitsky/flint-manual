@@ -1,18 +1,22 @@
 package {
 
+    import flash.filters.BlurFilter;
     import flash.geom.Point;
     import flash.display.Sprite;
+    import flash.geom.Rectangle;
 
     import org.flintparticles.common.counters.*;
     import org.flintparticles.common.displayObjects.RadialDot;
+    import org.flintparticles.common.displayObjects.Star;
     import org.flintparticles.common.initializers.*;
     import org.flintparticles.twoD.actions.*;
     import org.flintparticles.twoD.emitters.Emitter2D;
     import org.flintparticles.twoD.initializers.*;
     import org.flintparticles.twoD.renderers.*;
+    import org.flintparticles.twoD.renderers.BitmapLineRenderer;
     import org.flintparticles.twoD.zones.*;
 
-    [SWF(backgroundColor=0x000000, width=800, height=600)]
+    [SWF(backgroundColor=0x000000, width=620, height=400)]
 
     public class SnowfallExample extends Sprite
     {
@@ -21,30 +25,32 @@ package {
         public function SnowfallExample():void
         {
             // Количество частиц, генерируемое в единицу времени
-            emitter.counter = new Steady( 100 );
-
+            emitter.counter = new Steady(100);
 
             // Визуально частицы будут выглядеть как круг с радиальным
             // размытием и радиусом два пикселя
-            emitter.addInitializer( new ImageClass( RadialDot, [2] ) );
+            emitter.addInitializer(new ImageClass(Star, [2]));
 
             // Начальное положение частиц
-            emitter.addInitializer( new Position( new LineZone( new Point( -5, -5 ), new Point( 505, -5 ) ) ) );
+            emitter.addInitializer(new Position(new DiscZone(0, 0, stage.stageHeight >> 1)));
 
             // Velocity -- инициализирует значение гравитации. Это значение
             // использует Action Move.
-            emitter.addInitializer( new Velocity( new PointZone( new Point( 0, 65 ) ) ) );
+            emitter.addInitializer(new Velocity(new PointZone(new Point(0, 65))));
 
             // Значение масштаба частицы может менятся от 75% до 200% от размера
             // графического объекта
-            emitter.addInitializer( new ScaleImageInit( 0.75, 2 ) );
+            emitter.addInitializer(new ScaleImageInit(0.75, 2));
+
+            emitter.addInitializer(new ColorsInit([0xFFFF0000, 0xFFFF00FF, 0xFFFFFF00, 0xFF00FF00, 0xFF00FFFF], [1,1,1,1,1]));
 
             // Action задает действие над частицей. Move изменяет x, y координаты частиц
-            emitter.addAction( new Move() );
+            emitter.addAction(new Move());
 
             // DeathZone убивает частицы -- удаляет их из генератора или помечает
             // не используемыми для повторного использования.
-            emitter.addAction( new DeathZone( new RectangleZone( -10, -10, 520, 420 ), true ) );
+            var rect:RectangleZone = new RectangleZone(-10, -10, 640, 420);
+            emitter.addAction(new DeathZone(rect, true));
 
             // RandomDrift изменяет позицию частицы на случайное число в
             // диапазоне x = {0..15}, y = {0..15}
@@ -52,7 +58,8 @@ package {
 
             // Дальше рендерер прикрепляется в нужное вам место в
             // display list и запускается генерация частиц.
-            var renderer:DisplayObjectRenderer = new DisplayObjectRenderer();
+            var renderer:BitmapRenderer = new BitmapRenderer(new Rectangle(0, 0, stage.stageWidth, stage.stageHeight));
+            renderer.addFilter(new BlurFilter());
             addChild( renderer );
             renderer.addEmitter( emitter );
 
@@ -63,6 +70,8 @@ package {
             // вверху экрана.
             emitter.runAhead( 10 );
         }
+
+
     }
 
 }
