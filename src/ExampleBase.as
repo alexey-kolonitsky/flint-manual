@@ -30,43 +30,56 @@ package
 
         protected function stage_clickHandler(event:MouseEvent):void
         {
+            if (playIcon)
+            {
+                removeChild(playIcon);
+                playIcon = null;
+            }
 
+            if (playText)
+            {
+                removeChild(playText);
+                playText = null;
+            }
         }
+
+        private static const UI_COLOR:uint = 0x666666;
+
+        private var playIcon:Sprite;
+        private var playText:TextField;
 
         private function stage_enterFrameHandler(event:Event):void
         {
             redraw();
         }
 
-
-
         private function createPlayButton():void
         {
             var stageWidth2:int = stage.stageWidth >> 1;
             var stageHeight2:int = stage.stageHeight >> 1;
 
-            var s:Sprite = new Sprite();
-            s.graphics.beginFill(0xFF0000, 1.0);
-            s.graphics.drawTriangles(new <Number>[0, 0, 10, 5, 0, 10]);
-            s.graphics.endFill();
-            s.scaleX = 3.0;
-            s.scaleY = 3.0;
-            s.x = stageWidth2 - (s.width >> 1);
-            s.y = stageHeight2;
+            playIcon = new Sprite();
+            playIcon.graphics.beginFill(UI_COLOR, 1.0);
+            playIcon.graphics.drawTriangles(new <Number>[0, 0, 10, 5, 0, 10]);
+            playIcon.graphics.endFill();
+            playIcon.scaleX = 3.0;
+            playIcon.scaleY = 3.0;
+            playIcon.x = stageWidth2 - (playIcon.width >> 1);
+            playIcon.y = stageHeight2;
 
-            var tf:TextField = new TextField();
-            tf.border = false;
-            tf.borderColor = 0xFF0000;
-            tf.width = 60;
-            tf.autoSize = TextFieldAutoSize.CENTER;
-            tf.defaultTextFormat = new TextFormat("_sans", 18, 0xFFFFFF);
-            tf.selectable = false;
-            tf.text = "start()";
-            tf.x = stageWidth2 - (tf.width >> 1);
-            tf.y = stageHeight2 + s.height;
+            playText = new TextField();
+            playText.border = false;
+            playText.borderColor = UI_COLOR;
+            playText.width = 60;
+            playText.autoSize = TextFieldAutoSize.CENTER;
+            playText.defaultTextFormat = new TextFormat("_sans", 18, UI_COLOR);
+            playText.selectable = false;
+            playText.text = "click to start";
+            playText.x = stageWidth2 - (playText.width >> 1);
+            playText.y = stageHeight2 + playIcon.height;
 
-            addChild(s);
-            addChild(tf);
+            addChild(playIcon);
+            addChild(playText);
         }
 
         protected var drawQueue:Array = [];
@@ -76,8 +89,8 @@ package
             var n:int = drawQueue.length;
 
             graphics.clear();
-            graphics.lineStyle(1, 0xFF0000, 1.0, true);
-            graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+            graphics.lineStyle(1, UI_COLOR, 1.0, true);
+            graphics.drawRect(0, 0, stage.stageWidth -1, stage.stageHeight -1);
 
             for (var i:int = 0; i < n; i++)
             {
