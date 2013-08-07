@@ -40,7 +40,8 @@ package counters
             drawQueue.push(canvas);
 
             emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new Pulse(1000, 500);
+            emitter.counter = new Pulse(10, 500);
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );

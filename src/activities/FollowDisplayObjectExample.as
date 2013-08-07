@@ -1,17 +1,17 @@
 package activities
 {
 
-    import emitters.StarsEmitter;
+    import emitters.DriftStarsEmitter;
+
+    import flash.display.Sprite;
 
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     import flash.geom.Rectangle;
 
-    import org.flintparticles.common.counters.Blast;
-    import org.flintparticles.common.displayObjects.Dot;
-    import org.flintparticles.common.initializers.ImageClass;
     import org.flintparticles.common.renderers.SpriteRendererBase;
+    import org.flintparticles.twoD.activities.FollowDisplayObject;
     import org.flintparticles.twoD.renderers.BitmapRenderer;
 
     [SWF(backgroundColor=0x000000, width=620, height=400)]
@@ -21,7 +21,8 @@ package activities
      */
     public class FollowDisplayObjectExample extends ExampleBase
     {
-        private var emitter:StarsEmitter;
+        private var start:Point = new Point(0, 0);
+        private var emitter:DriftStarsEmitter;
         private var renderer:SpriteRendererBase;
 
         public function FollowDisplayObjectExample()
@@ -33,15 +34,24 @@ package activities
         {
             super.addedToStageHandler(event);
 
-            var start:Point = new Point(10, stage.stageHeight / 2);
+            var target:Sprite = new Sprite();
+            target.graphics.beginFill(0xFF0000, 1.0);
+            target.graphics.drawTriangles(new <Number>[-3, 0, 0, -3, 3, 0, -3, 0, 0, 3, 3, 0]);
+            target.graphics.endFill();
+            target.startDrag(true);
+            target.scaleX = target.scaleY = 3;
+            addChild(target);
+
             var canvas:Rectangle = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new Blast(100);
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
+
+            emitter = new DriftStarsEmitter(start, canvas);
+            emitter.addActivity(new FollowDisplayObject(target, renderer));
+
             renderer.addEmitter( emitter );
         }
 

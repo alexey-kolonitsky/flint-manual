@@ -1,17 +1,15 @@
 package activities
 {
 
-    import emitters.StarsEmitter;
+    import emitters.DriftStarsEmitter;
 
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     import flash.geom.Rectangle;
 
-    import org.flintparticles.common.counters.Blast;
-    import org.flintparticles.common.displayObjects.Dot;
-    import org.flintparticles.common.initializers.ImageClass;
     import org.flintparticles.common.renderers.SpriteRendererBase;
+    import org.flintparticles.twoD.activities.RotateEmitter;
     import org.flintparticles.twoD.renderers.BitmapRenderer;
 
     [SWF(backgroundColor=0x000000, width=620, height=400)]
@@ -21,7 +19,7 @@ package activities
      */
     public class RotateEmitterExample extends ExampleBase
     {
-        private var emitter:StarsEmitter;
+        private var emitter:DriftStarsEmitter;
         private var renderer:SpriteRendererBase;
 
         public function RotateEmitterExample()
@@ -38,8 +36,9 @@ package activities
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new Blast(100);
+            emitter = new DriftStarsEmitter(start, canvas);
+            emitter.addActivity(new RotateEmitter(10));
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );

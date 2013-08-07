@@ -2,7 +2,6 @@ package counters
 {
 
     import emitters.DriftStarsEmitter;
-    import emitters.StarsEmitter;
 
     import flash.events.Event;
     import flash.events.MouseEvent;
@@ -10,9 +9,6 @@ package counters
     import flash.geom.Rectangle;
 
     import org.flintparticles.common.counters.Blast;
-
-    import org.flintparticles.common.displayObjects.Dot;
-    import org.flintparticles.common.initializers.ImageClass;
     import org.flintparticles.common.renderers.SpriteRendererBase;
     import org.flintparticles.twoD.renderers.BitmapRenderer;
 
@@ -23,7 +19,7 @@ package counters
      */
     public class BlastExample extends ExampleBase
     {
-        private var emitter:StarsEmitter;
+        private var emitter:DriftStarsEmitter;
         private var renderer:SpriteRendererBase;
 
         public function BlastExample()
@@ -40,8 +36,9 @@ package counters
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
+            emitter = new DriftStarsEmitter(start, canvas);
             emitter.counter = new Blast(100);
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );

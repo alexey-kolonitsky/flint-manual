@@ -22,10 +22,10 @@ ${FLEX_HOME}/mxmlc src/counters/SineExample.as -output bin/SineExample.swf -sour
 ${FLEX_HOME}/mxmlc src/counters/SteadyExample.as -output bin/SteadyExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
 ${FLEX_HOME}/mxmlc src/counters/TimePeriodExample.as -output bin/TimePeriodExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
 
-${FLEX_HOME}/mxmlc src/counters/TimePeriodExample.as -output bin/TimePeriodExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
-${FLEX_HOME}/mxmlc src/counters/TimePeriodExample.as -output bin/TimePeriodExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
-${FLEX_HOME}/mxmlc src/counters/TimePeriodExample.as -output bin/TimePeriodExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
-${FLEX_HOME}/mxmlc src/counters/TimePeriodExample.as -output bin/TimePeriodExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
+${FLEX_HOME}/mxmlc src/activities/FollowDisplayObjectExample.as -output bin/FollowDisplayObjectExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
+${FLEX_HOME}/mxmlc src/activities/FollowMouseExample.as -output bin/FollowMouseExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
+${FLEX_HOME}/mxmlc src/activities/MoveEmitterExample.as -output bin/MoveEmitterExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
+${FLEX_HOME}/mxmlc src/activities/RotateEmitterExample.as -output bin/RotateEmitterExample.swf -source-path src -library-path+=libs -static-link-runtime-shared-libraries=true
 
 
 

@@ -9,10 +9,8 @@ package counters
     import flash.geom.Rectangle;
     import flash.ui.Keyboard;
 
-    import org.flintparticles.common.counters.Blast;
     import org.flintparticles.common.counters.KeyDownCounter;
-    import org.flintparticles.common.displayObjects.Dot;
-    import org.flintparticles.common.initializers.ImageClass;
+    import org.flintparticles.common.counters.Steady;
     import org.flintparticles.common.renderers.SpriteRendererBase;
     import org.flintparticles.twoD.renderers.BitmapRenderer;
 
@@ -40,8 +38,9 @@ package counters
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new KeyDownCounter(new Blast(), Keyboard.G, stage);
+            emitter = new StarsEmitter(start, canvas);
+            emitter.counter = new KeyDownCounter(new Steady(20), Keyboard.G, stage);
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );

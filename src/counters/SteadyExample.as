@@ -1,17 +1,14 @@
 package counters
 {
 
-    import emitters.StarsEmitter;
+    import emitters.DriftStarsEmitter;
 
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     import flash.geom.Rectangle;
 
-    import org.flintparticles.common.counters.Blast;
     import org.flintparticles.common.counters.Steady;
-    import org.flintparticles.common.displayObjects.Dot;
-    import org.flintparticles.common.initializers.ImageClass;
     import org.flintparticles.common.renderers.SpriteRendererBase;
     import org.flintparticles.twoD.renderers.BitmapRenderer;
 
@@ -22,7 +19,7 @@ package counters
      */
     public class SteadyExample extends ExampleBase
     {
-        private var emitter:StarsEmitter;
+        private var emitter:DriftStarsEmitter;
         private var renderer:SpriteRendererBase;
 
         public function SteadyExample()
@@ -39,8 +36,9 @@ package counters
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new Steady(10);
+            emitter = new DriftStarsEmitter(start, canvas);
+            emitter.counter = new Steady(25);
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );

@@ -1,6 +1,7 @@
 package counters
 {
 
+    import emitters.DriftStarsEmitter;
     import emitters.StarsEmitter;
 
     import flash.events.Event;
@@ -23,7 +24,7 @@ package counters
      */
     public class SineExample extends ExampleBase
     {
-        private var emitter:StarsEmitter;
+        private var emitter:DriftStarsEmitter;
         private var renderer:SpriteRendererBase;
 
         public function SineExample()
@@ -40,8 +41,9 @@ package counters
             drawQueue.push(start);
             drawQueue.push(canvas);
 
-            emitter = new StarsEmitter(start, canvas, new ImageClass(Dot, [3], true));
-            emitter.counter = new SineCounter(1000, 1000, 50);
+            emitter = new DriftStarsEmitter(start, canvas);
+            emitter.counter = new SineCounter(1, 50, 1);
+
             renderer = new BitmapRenderer(canvas, false);
             addChild( renderer );
             renderer.addEmitter( emitter );
